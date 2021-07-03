@@ -10,7 +10,12 @@ class LibroAPI(APIView):
         return Response(serializador.data,status=200)
 
     def post(self, request):
-        return Response(status=200)
+        serializador = libroSerial(data=request.data)
+        if serializador.is_valid():
+            serializador.save()
+            return Response(serializador.data, status=200)
+        else:
+            return Response(serializador.errors , status=400)
 
     def put (self, request, ID):
         return Response (status=200)
