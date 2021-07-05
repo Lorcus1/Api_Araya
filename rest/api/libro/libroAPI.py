@@ -1,10 +1,14 @@
 from rest_framework import serializers
+from rest_framework import permissions
 from api.libro.libroSLR import libroSerial
 from api.models import Libro
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 
 class LibroAPI(APIView):
+    permission_classes = [IsAuthenticated]
+
     def get(self,request):
         try:
             libros = Libro.objects.all()
